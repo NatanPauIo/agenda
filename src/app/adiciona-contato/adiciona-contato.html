@@ -1,0 +1,74 @@
+<div class="container formulario">
+  <h2>Adicionar Contato</h2>
+  <form>
+    <div>
+      <label for="inputNome" class="form-label">Nome</label>
+      <input #nome class="form-control" type="text" id="inputNome" placeholder="Nome">
+    </div>
+
+    <div>
+      <label for="inputTelefone" class="form-label">Telefone</label>
+      <input #telefone class="form-control" type="tel" id="inputTelefone" placeholder="Telefone">
+    </div>
+
+    <div>
+      <label for="inputEmail" class="form-label">Email</label>
+      <input #email class="form-control" type="email" id="inputEmail" placeholder="Email">
+    </div>
+
+    <div>
+      <label for="inputNascimento" class="form-label">Data de Nascimento</label>
+      <input #nascimento class="form-control" type="date" id="inputNascimento">
+    </div>
+
+    <div class="form-field">
+      <label for="selectTipo" class="form-label">Tipo</label>
+      <select #tipo class="form-control" id="selectTipo">
+        <option value="">Escolha o tipo...</option>
+        @for (t of tiposContato; track t) {
+          <option [value]="t">{{ t }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <button 
+        type="button" 
+        class="btn-solid theme-primary botao"
+        (click)="adicionarContato(nome.value, telefone.value, email.value, nascimento.value, tipo.value)">
+        Adicionar
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="container tabela-contatos">
+  <h2>Contatos Cadastrados</h2>
+
+  @if (contatos.length > 0) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th>Aniversário</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of contatos; track c.email) {
+          <tr>
+            <td>{{ c.nome }}</td>
+            <td>{{ c.telefone }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.aniversario | date:'dd/MM/yyyy' }}</td>
+            <td>{{ c.tipo }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>Nenhum contato cadastrado ainda.</p>
+  }
+</div>
